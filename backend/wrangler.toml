@@ -1,6 +1,6 @@
 name = "claude-chat-backend"
 main = "src/index.js"
-compatibility_date = "2024-01-01"
+compatibility_date = "2025-11-05"
 
 # Development environment
 [env.development]
