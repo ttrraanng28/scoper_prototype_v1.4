@@ -1,0 +1,21 @@
+{
+  "name": "claude-chat-ui",
+  "version": "1.0.0",
+  "description": "Chat interface prototype for Claude AI with Scoper methodology",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "deploy:frontend": "cd frontend && npm run deploy",
+    "deploy:backend": "cd backend && npm run deploy"
+  },
+  "keywords": ["chat", "ai", "claude", "business-consultation"],
+  "author": "",
+  "license": "MIT"
+}
