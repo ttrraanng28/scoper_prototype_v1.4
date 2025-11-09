@@ -83,7 +83,7 @@ class StorageManager {
 const storage = new StorageManager();
 
 // Conversation persistence functions
-export const conversationStorage = {
+const conversationStorage = {
   // Save conversation history
   saveConversation(messages) {
     const conversationData = {
@@ -154,4 +154,10 @@ export const conversationStorage = {
   }
 };
 
-export default conversationStorage;
+// Export for ES modules
+export { conversationStorage };
+
+// Also make available globally for compatibility
+if (typeof window !== 'undefined') {
+  window.conversationStorage = conversationStorage;
+}

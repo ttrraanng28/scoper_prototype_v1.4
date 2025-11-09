@@ -1,5 +1,6 @@
 // API configuration and utilities
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
+// API_BASE_URL can be set via window.API_BASE_URL or defaults to localhost
+const API_BASE_URL = window.API_BASE_URL || 'http://localhost:8787';
 
 class ApiError extends Error {
   constructor(message, status, response) {
@@ -11,7 +12,7 @@ class ApiError extends Error {
 }
 
 // HTTP client with retry mechanism
-export const apiClient = {
+const apiClient = {
   async post(endpoint, data, options = {}) {
     const { maxRetries = 3, retryDelay = 1000 } = options;
     
@@ -81,7 +82,7 @@ export const apiClient = {
 };
 
 // Chat API functions
-export const chatApi = {
+const chatApi = {
   async sendMessage(message, conversationHistory = []) {
     if (!message || typeof message !== 'string' || !message.trim()) {
       throw new Error('Message is required and must be a non-empty string');
@@ -130,7 +131,7 @@ export const chatApi = {
 };
 
 // Error handling utilities
-export const getErrorMessage = (error) => {
+const getErrorMessage = (error) => {
   if (error instanceof ApiError) {
     switch (error.status) {
       case 0:
@@ -186,7 +187,7 @@ export const getErrorMessage = (error) => {
 };
 
 // Enhanced retry utility with exponential backoff
-export const retryWithBackoff = async (fn, maxRetries = 3, baseDelay = 1000) => {
+const retryWithBackoff = async (fn, maxRetries = 3, baseDelay = 1000) => {
   let lastError;
   
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
@@ -219,4 +220,13 @@ export const retryWithBackoff = async (fn, maxRetries = 3, baseDelay = 1000) => 
   throw lastError;
 };
 
-export { ApiError };
+// Export for ES modules
+export { chatApi, getErrorMessage, retryWithBackoff, ApiError };
+
+// Also make available globally for compatibility
+if (typeof window !== 'undefined') {
+  window.chatApi = chatApi;
+  window.getErrorMessage = getErrorMessage;
+  window.retryWithBackoff = retryWithBackoff;
+  window.ApiError = ApiError;
+}

@@ -1,13 +1,100 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claude Chat UI</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+    <link rel="stylesheet" href="/fonts/fonts.css">
+    <link rel="stylesheet" href="/src/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- API Configuration: Set window.API_BASE_URL before loading api.js -->
+    <script>
+        // Configure your API base URL here (defaults to http://localhost:8787)
+        // window.API_BASE_URL = 'https://your-api-url.com';
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="title-wrapper">
+                    <div class="title-logo">
+                        <img class="logo" src="/logo.svg" alt="logo">
+                        <h1 class="header-title">scoper v1.4</h1>
+                    </div>
+                    <p class="header-subtitle">
+                        Transform your business challenges into actionable project plans
+                        <span id="storage-warning" class="storage-warning" style="display: none;">• Session not saved</span>
+                    </p>
+                </div>
+                <div class="header-actions">
+                    <button id="clear-chat-btn" class="clear-chat-btn" style="display: none;" title="Clear conversation history">
+                        Clear Chat
+                    </button>
+                    <div class="connection-status">
+                        <div id="connection-indicator" class="connection-indicator connection-checking"></div>
+                        <span id="connection-text" class="connection-text">Connecting...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="chat-container">
+            <!-- Messages Area -->
+            <div id="messages-wrapper" class="messages-wrapper" style="display: none">
+                <div id="empty-state" class="empty-state">
+                    <div class="empty-state-content">
+                        <div class="empty-state-icon">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="messages-list" class="messages-list" style="display: none;"></div>
+                <div id="messages-end"></div>
+            </div>
+
+            <!-- Scroll to bottom button -->
+            <button id="scroll-to-bottom-btn" class="scroll-to-bottom-btn" style="display: none;" title="Scroll to bottom">
+                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </button>
+
+            <!-- Error Display -->
+            <div id="error-container" class="error-container" style="display: none;"></div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <form id="message-form" class="message-form">
+                    <textarea
+                        id="message-input"
+                        class="message-input"
+                        placeholder="Type your business question here..."
+                        rows="1"
+                    ></textarea>
+                    <button type="submit" id="send-btn" class="send-btn magneto" disabled>
+                        <div class="text">
+                            <img src="/send.svg" alt="send">
+                            <p>send</p>
+                        </div>
+                    </button>
+                </form>
+            </div>
+            <div id="card-wrapper" class="card-wrapper">
+                <div class="card magneto"><p class="text">✨ 3-layer analysis methodology</p></div>
+                <div class="card magneto"><p class="text">📊 Business matrix framework</p></div>
+                <div class="card magneto"><p class="text">🎯 Actionable project cards</p></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/storage.js"></script>
+    <script type="module" src="/src/api.js"></script>
+    <script type="module" src="/src/app.js"></script>
+</body>
 </html>
